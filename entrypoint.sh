@@ -3,6 +3,9 @@ set -e
 
 PATH=/usr/local/bin:$PATH
 
+# Configuration passed in via environment variables
+EXTERNAL_IP=$HOST_URL
+
 case $CLOUD in 
   gcp)
     LOCAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
@@ -31,6 +34,7 @@ else
 fi
 
 sed -i -e "s/MY_IP/$MY_IP/g" /etc/rtpengine.conf
+sed -i -e "s/EXTERNAL_IP/$EXTERNAL_IP/g" /etc/rtpengine.conf
 
 if [ "$1" = 'rtpengine' ]; then
   shift
