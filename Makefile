@@ -7,4 +7,4 @@ build:
 		.
 
 start:
-	docker run -d --name rtpengine:dave 
+	docker run -d --name dave_rtp rtpengine:dave 
